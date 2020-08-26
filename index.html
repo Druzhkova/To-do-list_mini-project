@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/style.css">
+  <title>To do list</title>
+</head>
+<body>
+  <div class="container">
+    <div class="background"><img src="./img/background.jpg" alt=""></div>
+    <header class="to-do-list-header">
+      <input class="input-task" type="text" placeholder="enter new task">
+      <input class="input-data" type="date">
+      <button class="to-do-list-header__button">&plus; add task</button>
+    </header>
+    <main>
+      <section class="to-do-list inner">
+        <div class="to-do-list__title title">
+          <p class="to-do-list__task">to do:</p>
+        </div>
+        <div class="tasks">
+          <div id="task" class="first-task">
+            <p><span class="list-number"></span><span id="task__text" class="task__text-to-do"></span></p>
+            <div id="task__icons-to-do">
+              <span id="task__icon" class="task__right-arrow"></span>
+              <span id="task__icon" class="task__cross"></span>
+            </div>
+          </div>
+          <div id="task">
+            <p><span class="list-number"></span><span id="task__text" class="task__text-to-do"></span></p>
+            <div id="task__icons-to-do">
+              <span id="task__icon" class="task__right-arrow"></span>
+              <span id="task__icon" class="task__cross"></span>
+            </div>
+          </div>
+          <div id="task">
+            <p><span class="list-number"></span><span id="task__text" class="task__text-to-do"></span></p>
+            <div id="task__icons-to-do">
+              <span id="task__icon" class="task__right-arrow"></span>
+              <span id="task__icon" class="task__cross"></span>
+            </div>
+          </div>
+          <div id="task">
+            <p><span class="list-number"></span><span id="task__text" class="task__text-to-do"></span></p>
+            <div id="task__icons-to-do">
+              <span id="task__icon" class="task__right-arrow"></span>
+              <span id="task__icon" class="task__cross"></span>
+            </div>
+          </div>
+          <div id="task">
+            <p><span class="list-number"></span><span id="task__text" class="task__text-to-do"></span></p>
+            <div id="task__icons-to-do">
+              <span id="task__icon" class="task__right-arrow"></span>
+              <span id="task__icon" class="task__cross"></span>
+            </div>
+          </div>
+          <div id="task">
+            <p><span class="list-number"></span><span id="task__text" class="task__text-to-do"></span></p>
+            <div id="task__icons-to-do">
+              <span id="task__icon" class="task__right-arrow"></span>
+              <span id="task__icon" class="task__cross"></span>
+            </div>
+          </div>
+        </div>
+        <button class="button-clear-all" id="clear-all-to-do">clear all</button>
+      </section>
+      <section class="in-progress-list inner">
+        <div class="in-progress-list__title title">
+          <p class="to-do-list__task">in progress:</p>
+        </div>
+        <div class="tasks">
+          <div id="task" class="first-task">
+            <p><span class="list-number"></span><span id="task__text"></span></p>
+            <div id="task__icons">
+              <span id="task__icon" class="task__right-arrow"></span>
+              <span id="task__icon" class="task__cross"></span>
+            </div>
+          </div>
+          <div id="task">
+            <p><span class="list-number"></span><span id="task__text"></span></p>
+            <div id="task__icons">
+              <span id="task__icon" class="task__right-arrow"></span>
+              <span id="task__icon" class="task__cross"></span>
+            </div>
+          </div>
+          <div id="task">
+            <p><span class="list-number"></span><span id="task__text"></span></p>
+            <div id="task__icons">
+              <span id="task__icon" class="task__right-arrow"></span>
+              <span id="task__icon" class="task__cross"></span>
+            </div>
+          </div>
+          <div id="task">
+            <p><span class="list-number"></span><span id="task__text"></span></p>
+            <div id="task__icons">
+              <span id="task__icon" class="task__right-arrow"></span>
+              <span id="task__icon" class="task__cross"></span>
+            </div>
+          </div>
+          <div id="task">
+            <p><span class="list-number"></span><span id="task__text"></span></p>
+            <div id="task__icons">
+              <span id="task__icon" class="task__right-arrow"></span>
+              <span id="task__icon" class="task__cross"></span>
+            </div>
+          </div>
+          <div id="task">
+            <p><span class="list-number"></span><span id="task__text"></span></p>
+            <div id="task__icons">
+              <span id="task__icon" class="task__right-arrow"></span>
+              <span id="task__icon" class="task__cross"></span>
+            </div>
+          </div>
+        </div>
+        <button class="button-clear-all" id="button-in-progress-list">clear all</button>
+      </section>
+      <section class="done-list inner">
+        <div class="done-list__title title">
+          <p class="to-do-list__task">done:</p>
+        </div>
+        <div class="tasks">
+          <div id="task" class="first-task">
+            <p><span class="list-number"></span><span id="task__text"></span></p>
+            <div id="task__icons">
+              <span id="task__icon" class="task__right-arrow"></span>
+              <span id="task__icon" class="task__cross"></span>
+            </div>
+          </div>
+          <div id="task">
+            <p><span class="list-number"></span><span id="task__text"></span></p>
+            <div id="task__icons">
+              <span id="task__icon" class="task__right-arrow"></span>
+              <span id="task__icon" class="task__cross"></span>
+            </div>
+          </div>
+          <div id="task">
+            <p><span class="list-number"></span><span id="task__text"></span></p>
+            <div id="task__icons">
+              <span id="task__icon" class="task__right-arrow"></span>
+              <span id="task__icon" class="task__cross"></span>
+            </div>
+          </div>
+          <div id="task">
+            <p><span class="list-number"></span><span id="task__text"></span></p>
+            <div id="task__icons">
+              <span id="task__icon" class="task__right-arrow"></span>
+              <span id="task__icon" class="task__cross"></span>
+            </div>
+          </div>
+          <div id="task">
+            <p><span class="list-number"></span><span id="task__text"></span></p>
+            <div id="task__icons">
+              <span id="task__icon" class="task__right-arrow"></span>
+              <span id="task__icon" class="task__cross"></span>
+            </div>
+          </div>
+          <div id="task">
+            <p><span class="list-number"></span><span id="task__text"></span></p>
+            <div id="task__icons">
+              <span id="task__icon" class="task__right-arrow"></span>
+              <span id="task__icon" class="task__cross"></span>
+            </div>
+          </div>
+        </div>
+        <button class="button-clear-all">clear all</button>
+      </section>
+    </main>
+  </div>
+  <div class="modal__clear-all">
+    <div class="modal__context">
+      <p>Are you sure?</p>
+      <div class="modal__button">
+        <button class="modals__button-yes">Yes</button>
+        <button class="modals__button-no">No</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal__max-elements">
+    <div class="modal__context">
+      <p>Need to do something before adding more!</p>
+      <div class="modal__button">
+        <button class="modals__button-yes">OK</button>
+      </div>
+    </div>
+  </div>
+<script type="text/javascript" src="./js/script.js" ></script>
+</body>
+</html>
