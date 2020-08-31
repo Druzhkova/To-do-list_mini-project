@@ -175,7 +175,9 @@ main {
   margin: 2.5px 7.5px;
 }
 
-.task__right-arrow {
+.task__right-arrow,
+.task__right-arrow-in-progress,
+.task__right-arrow-done {
   background: url(../img/arrow.png) no-repeat;
   background-size: cover;
 }
@@ -216,7 +218,10 @@ main {
 /* Modals
 ===============================================================*/
 
-.modal__clear-all, .modal__max-elements{
+.modal__clear-all, 
+.modal__max-elements, 
+.modal__empty-fields,
+.modal__delete-task-in-progress {
   display: none;
   position: fixed;
   z-index: 1;
@@ -284,4 +289,9 @@ main {
 .modal__max-elements .modal__context{
   margin-right: -250px;
   width: 500px;
+}
+
+.modal__delete-task-in-progress .modal__context {
+  margin-right: -140px;
+  width: 370px;
 }
