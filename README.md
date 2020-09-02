@@ -1,3 +1,3 @@
 # To do list
 
-<a href='https://viktoriya-druzhkova.github.io/JS_tasks-7/'>Watch here</a>
+<a href='https://viktoriya-druzhkova.github.io/To-do-list_mini-project/'>Watch here</a>
