@@ -17,7 +17,7 @@ body {
 
 .container {
   max-width: 1200px;
-  min-width: 300px;
+  min-width: 250px;
   margin: 0 auto;
 }
 
@@ -52,8 +52,8 @@ body {
 }
 
 .to-do-list-header input[type='date'] {
-  width: 37%;
-  margin: 0 3%;
+  min-width: 165px;
+  margin: 0 2%;
   padding: 10px;
   font-size: 16px;
   border: none;
@@ -63,6 +63,7 @@ body {
 
 .to-do-list-header__button {
   width: 29%;
+  min-width: 115px;
   padding: 13px 16px;
   font-size: 16px;
   color: white;
@@ -98,7 +99,7 @@ main {
 .inner {
   position: relative;
   width: 32%;
-  min-width: 300px;
+  min-width: 250px;
   border-radius: 7px;
   box-shadow: 0 0 20px black;
   background: white;
@@ -340,5 +341,18 @@ main {
 
   .to-do-list-header input[type='date'] {
     margin: 0;
+  }
+}
+
+@media (max-width: 360px) {
+  
+  .to-do-list-header__button {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .to-do-list-header input[type='date'] {
+    width: 100%;
+    margin-bottom: 15px;
   }
 }
