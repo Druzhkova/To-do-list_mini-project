@@ -10,7 +10,7 @@ let buttonClearAllDone = document.querySelector('#button-done-list');
 let buttonAddTask = document.querySelector('.to-do-list-header__button');
 let buttonDeleteInProgressList = document.querySelector('#button-in-progress-list');
 let buttonCloseModals = document.querySelector('.modals__button-no');
-
+let deleteModalInProgress = document.querySelector('.modal__delete-task-in-progress');
 
 window.addEventListener('click', function(event){
   if(event.target === popup) {
@@ -28,7 +28,7 @@ inputTask.addEventListener('blur', function(){
 })
 
 buttonAddTask.addEventListener('click', function(){
-  if(inputTask.value !== "" && inputData.value !== "" ){
+  if(inputTask.value && inputData.value && inputTask.value.trim().length > 0){
     createElements(`${inputData.value} ${inputTask.value} `);
     inputData.value = '';
     inputTask.value = '';
@@ -41,17 +41,38 @@ buttonAddTask.addEventListener('click', function(){
   }
 })
 
+function createTaskNumber() { 
+  let titles = document.querySelectorAll('.title');
+    for (let item of titles) {
+    if(item.id === 'title-to-do'){
+      if(tasksTextToDo.children.length === 0) {
+        item.textContent = 'to do:';
+      } else {
+        item.textContent = `you have ${tasksTextToDo.children.length} todos:`
+      }
+    } else if(item.id === 'title-in-progress') {
+      if(tasksInProgress.children.length === 0) {
+        item.textContent = 'in progress:';
+      } else {
+        item.textContent = `${tasksInProgress.children.length} in progress:`
+      }
+    } else if(item.id === 'title-done') {
+      if(tasksDone.children.length === 0) {
+        item.textContent = 'done:';
+      } else {
+        item.textContent = `${tasksDone.children.length} done:`
+      }
+    }
+  }
+}
+
 function createElements(text){
-  let divTask = document.createElement('div');
+  let divTask = document.createElement('li');
   divTask.id = 'task';
+  divTask.textContent = text;
   tasksTextToDo.append(divTask);
 
-  let pTaskText = document.createElement('p');
-  pTaskText.id = 'task__text';
-  divTask.append(pTaskText);
-  pTaskText.textContent = text;
-
-  let divTaskIcons = document.createElement('div');
+  let divTaskIcons = document.createElement('span');
   divTaskIcons.id = 'task__icons-to-do';
   divTaskIcons.classList.add('task__icons');
   divTask.append(divTaskIcons);
@@ -66,45 +87,56 @@ function createElements(text){
   taskIconCross.classList.add('task__cross');
   divTaskIcons.append(taskIconCross);
 
-  taskIconCross.addEventListener('click', function(event) {
+  createTaskNumber()
+
+  taskIconCross.addEventListener('click', removeTask);
+
+  function removeTask(event){
     if(event.target.previousSibling.className === 'task__right-arrow' || event.target.previousSibling.className === 'task__right-arrow-done') {
-      divTask.remove();   
+      divTask.remove();
+      createTaskNumber()   
     } else if(event.target.previousSibling.className === 'task__right-arrow-in-progress'){
-      let deleteModalInProgress = document.querySelector('.modal__delete-task-in-progress')
       deleteModalInProgress.style.display = 'block';
-      let buttonDeleteTask = document.querySelector('.modals__button-yes-delete-task');
-      buttonDeleteTask.addEventListener('click', function(){
-        deleteModalInProgress.style.display = 'none';
-        divTask.remove(); 
-      });
-      let buttonNoDeleteTask = document.querySelector('.modals__button-no-delete-task');
-      buttonNoDeleteTask.addEventListener('click', function(){
-        deleteModalInProgress.style.display = 'none';
-      })
+      createTaskNumber()
     }
-  })
+
+    document.querySelector('.modals__button-yes-delete-task').addEventListener('click', function(){
+      deleteModalInProgress.style.display = 'none';
+      divTask.remove(); 
+      createTaskNumber()
+    });
+    
+    document.querySelector('.modals__button-no-delete-task').addEventListener('click', function(){
+      deleteModalInProgress.style.display = 'none';
+      createTaskNumber()
+    })
+  }
   
   divTask.addEventListener('click', function(event){
     if(event.target.className === 'task__right-arrow'){
-      if(tasksInProgress.children.length === 6){
+      if(tasksInProgress.children.length === 5){
         let modalMaxElements = document.querySelector('.modal__max-elements');
         modalMaxElements.style.display = 'block';
         document.querySelector('.modals__button-yes-max').addEventListener('click', function(){
-          modalMaxElements.style.display = 'none';
+        modalMaxElements.style.display = 'none';
+        createTaskNumber()
         })
       } else {
         tasksInProgress.append(divTask);
         taskIconRightArrow.classList.remove('task__right-arrow');
         taskIconRightArrow.classList.add('task__right-arrow-in-progress');
+        createTaskNumber()
       }
     } else if(event.target.className === 'task__right-arrow-in-progress'){
       tasksDone.append(divTask);
       taskIconRightArrow.classList.remove('task__right-arrow-in-progress');
       taskIconRightArrow.classList.add('task__right-arrow-done');
+      createTaskNumber()
     } else if(event.target.className === 'task__right-arrow-done'){
       tasksTextToDo.append(divTask);
       taskIconRightArrow.classList.remove('task__right-arrow-done');
       taskIconRightArrow.classList.add('task__right-arrow');
+      createTaskNumber()
     }
   })
 }
@@ -112,26 +144,31 @@ function createElements(text){
 buttonClearAllToDo.addEventListener('click', function(){
   if(tasksTextToDo.children.length > 0) {
     tasksTextToDo.innerHTML = '';
+    createTaskNumber()
   } 
 })
 
 buttonClearAllDone.addEventListener('click', function(){
   if(tasksDone.children.length > 0) {
     tasksDone.innerHTML = '';
+    createTaskNumber()
   } 
 })
 
 buttonDeleteInProgressList.addEventListener('click', function(){
   if(tasksInProgress.children.length > 0) {
     popup.style.display = 'block';
+    createTaskNumber()
   } 
 });
 
 buttonCloseModals.addEventListener('click', function(){
   popup.style.display = 'none';
+  createTaskNumber() 
 });
 
 document.querySelector('.modals__button-yes').addEventListener('click', function(){
   popup.style.display = 'none';
   tasksInProgress.innerHTML = '';
+  createTaskNumber() 
 });
