@@ -1,6 +1,6 @@
 *{
   margin: 0;
-  padding: 0;
+  /* padding: 0; */
   box-sizing: border-box;
 }
 
@@ -72,7 +72,7 @@ body {
   background: #2f6d9f;
   box-shadow: 0 5px 0 rgb(27, 65, 95, 1);
   transition: 0.3s;
-}
+} 
 
 .to-do-list-header__button:hover {
   transform: translateY(-3px);
@@ -113,24 +113,23 @@ main {
   background: #2c3e50;
   border-radius: 7px;
   box-shadow: 0 0 10px black;
-}
-
-.to-do-list__task {
   padding: 15px 20px;
-  font-size: 20px;
+  font-size: 18px;
   color: white;
 }
 
+ol {
+  padding-left: 36px;
+}
+
 #task {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  position: relative;
   width: 100%;
   height: 38.4px;
-  padding: 10px 5px;
+  padding: 10px 70px 10px 5px;
   transition: 0.2s;
-  box-shadow: 0 0.5px 1px gray;
-}
+  box-sizing: border-box;
+} 
 
 #task p {
   padding: 0 0 0 3%;
@@ -141,10 +140,6 @@ main {
   border-top-left-radius: 7px;
 }
 
-#task:hover {
-  background: #E0E0E0;
-}
-
 #task__text {
   width: 80%;
 }
@@ -153,14 +148,11 @@ main {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  width: 75px;
-  margin: 0;
 }
 
 #task__icon {
   width: 20px;
   height: 20px;
-  margin: 0 6px;
   transition: 0.2s;
 }
 
@@ -168,24 +160,30 @@ main {
 #task__icon.hover {
   width: 28px;
   height: 28px;
-  margin: -5px 2.5px;
+  margin: -4px -4px;
 }
 
 #task__icon:active,
 #task__icon.active {
   width: 18px;
   height: 18px;
-  margin: 2.5px 7.5px;
+  margin: -4px -4px;
 }
 
 .task__right-arrow,
 .task__right-arrow-in-progress,
 .task__right-arrow-done {
+  position: absolute;
+  right: 38px;
+  top: 10px;
   background: url(../img/arrow.png) no-repeat;
   background-size: cover;
 }
 
 .task__cross {
+  position: absolute;
+  right: 10px;
+  top: 10px;
   background: url(../img/delete.png) no-repeat;
   background-size: cover;
 }
@@ -289,14 +287,18 @@ main {
   background: #215076;
 }
 
-.modal__max-elements .modal__context{
-  margin-right: -250px;
-  width: 500px;
+.modal__max-elements .modal__context {
+  text-align: center;
+  height: 150px;
+}
+
+.modal__max-elements .modal__context p {
+  margin-bottom: 15px;
 }
 
 .modal__delete-task-in-progress .modal__context {
-  margin-right: -140px;
-  width: 370px;
+  margin-right: -180px;
+  width: 360px;
 }
 
 @media (max-width: 950px) {
@@ -313,6 +315,7 @@ main {
   .to-do-list-header {
     margin: 0;
   }
+
 }
 
 @media (max-width: 630px) {
