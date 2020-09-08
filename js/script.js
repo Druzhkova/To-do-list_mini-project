@@ -41,31 +41,6 @@ buttonAddTask.addEventListener('click', function(){
   }
 })
 
-function createTaskNumber() { 
-  let titles = document.querySelectorAll('.title');
-    for (let item of titles) {
-    if(item.id === 'title-to-do'){
-      if(tasksTextToDo.children.length === 0) {
-        item.textContent = 'to do:';
-      } else {
-        item.textContent = `you have ${tasksTextToDo.children.length} todos:`
-      }
-    } else if(item.id === 'title-in-progress') {
-      if(tasksInProgress.children.length === 0) {
-        item.textContent = 'in progress:';
-      } else {
-        item.textContent = `${tasksInProgress.children.length} in progress:`
-      }
-    } else if(item.id === 'title-done') {
-      if(tasksDone.children.length === 0) {
-        item.textContent = 'done:';
-      } else {
-        item.textContent = `${tasksDone.children.length} done:`
-      }
-    }
-  }
-}
-
 function createElements(text){
   let divTask = document.createElement('li');
   divTask.id = 'task';
@@ -86,7 +61,6 @@ function createElements(text){
   taskIconCross.id = 'task__icon';
   taskIconCross.classList.add('task__cross');
   divTaskIcons.append(taskIconCross);
-
   createTaskNumber()
 
   taskIconCross.addEventListener('click', removeTask);
@@ -94,22 +68,21 @@ function createElements(text){
   function removeTask(event){
     if(event.target.previousSibling.className === 'task__right-arrow' || event.target.previousSibling.className === 'task__right-arrow-done') {
       divTask.remove();
-      createTaskNumber()   
+      createTaskNumber(); 
     } else if(event.target.previousSibling.className === 'task__right-arrow-in-progress'){
       deleteModalInProgress.style.display = 'block';
-      createTaskNumber()
     }
 
     document.querySelector('.modals__button-yes-delete-task').addEventListener('click', function(){
       deleteModalInProgress.style.display = 'none';
       divTask.remove(); 
-      createTaskNumber()
+      createTaskNumber();
     });
     
     document.querySelector('.modals__button-no-delete-task').addEventListener('click', function(){
       deleteModalInProgress.style.display = 'none';
-      createTaskNumber()
     })
+
   }
   
   divTask.addEventListener('click', function(event){
@@ -119,24 +92,25 @@ function createElements(text){
         modalMaxElements.style.display = 'block';
         document.querySelector('.modals__button-yes-max').addEventListener('click', function(){
         modalMaxElements.style.display = 'none';
-        createTaskNumber()
+        createTaskNumber();
         })
       } else {
         tasksInProgress.append(divTask);
         taskIconRightArrow.classList.remove('task__right-arrow');
         taskIconRightArrow.classList.add('task__right-arrow-in-progress');
-        createTaskNumber()
+        createTaskNumber();
       }
     } else if(event.target.className === 'task__right-arrow-in-progress'){
       tasksDone.append(divTask);
       taskIconRightArrow.classList.remove('task__right-arrow-in-progress');
       taskIconRightArrow.classList.add('task__right-arrow-done');
-      createTaskNumber()
+      createTaskNumber();
+
     } else if(event.target.className === 'task__right-arrow-done'){
       tasksTextToDo.append(divTask);
       taskIconRightArrow.classList.remove('task__right-arrow-done');
       taskIconRightArrow.classList.add('task__right-arrow');
-      createTaskNumber()
+      createTaskNumber();
     }
   })
 }
@@ -144,7 +118,7 @@ function createElements(text){
 buttonClearAllToDo.addEventListener('click', function(){
   if(tasksTextToDo.children.length > 0) {
     tasksTextToDo.innerHTML = '';
-    createTaskNumber()
+    createTaskNumber();
   } 
 })
 
@@ -158,17 +132,40 @@ buttonClearAllDone.addEventListener('click', function(){
 buttonDeleteInProgressList.addEventListener('click', function(){
   if(tasksInProgress.children.length > 0) {
     popup.style.display = 'block';
-    createTaskNumber()
   } 
 });
 
 buttonCloseModals.addEventListener('click', function(){
   popup.style.display = 'none';
-  createTaskNumber() 
 });
 
 document.querySelector('.modals__button-yes').addEventListener('click', function(){
   popup.style.display = 'none';
   tasksInProgress.innerHTML = '';
-  createTaskNumber() 
+  createTaskNumber();
 });
+
+function createTaskNumber() { 
+  let titles = document.querySelectorAll('.title');
+    for (let item of titles) {
+    if(item.id === 'title-to-do'){
+      if(tasksTextToDo.children.length === 0) {
+        item.textContent = 'to do:';
+      } else {
+        item.textContent = `you have ${tasksTextToDo.children.length} todos:`;;
+      }
+    } else if(item.id === 'title-in-progress') {
+      if(tasksInProgress.children.length === 0) {
+        item.textContent = 'in progress:';
+      } else {
+        item.textContent = `${tasksInProgress.children.length} in progress:`;
+      }
+    } else if(item.id === 'title-done') {
+      if(tasksDone.children.length === 0) {
+        item.textContent = 'done:';
+      } else {
+        item.textContent = `${tasksDone.children.length} done:`;
+      }
+    }
+  }
+}
