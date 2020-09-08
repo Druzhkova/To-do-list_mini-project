@@ -103,7 +103,7 @@ main {
   border-radius: 7px;
   box-shadow: 0 0 20px black;
   background: white;
-  padding-bottom: 38px;
+  padding: 10px 0 30px;
 }
 
 .title {
