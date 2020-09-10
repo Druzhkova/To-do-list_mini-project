@@ -10,6 +10,8 @@ let buttonClearAllDone = document.querySelector('#button-done-list');
 let buttonAddTask = document.querySelector('.to-do-list-header__button');
 let buttonDeleteInProgressList = document.querySelector('#button-in-progress-list');
 let buttonCloseModals = document.querySelector('.modals__button-no');
+let buttonClosemodalEmptyFields = document.querySelector('.button-close-modal-empty-fields');
+let modalMaxElements = document.querySelector('.modal__max-elements');
 let deleteModalInProgress = document.querySelector('.modal__delete-task-in-progress');
 
 window.addEventListener('click', function(event){
@@ -30,89 +32,97 @@ inputTask.addEventListener('blur', function(){
 buttonAddTask.addEventListener('click', function(){
   if(inputTask.value && inputData.value && inputTask.value.trim().length > 0){
     createElements(`${inputData.value} ${inputTask.value} `);
-    inputData.value = '';
-    inputTask.value = '';
+    clearFields();
   } else {
     modalEmptyFields.style.display = 'block';
-    let buttonClosemodalEmptyFields = document.querySelector('.button-close-modal-empty-fields');
     buttonClosemodalEmptyFields.addEventListener('click', function(){
       modalEmptyFields.style.display = 'none';
     })
   }
 })
 
+function clearFields(){
+  inputData.value = '';
+  inputTask.value = '';
+}
+
 function createElements(text){
   let divTask = document.createElement('li');
-  divTask.id = 'task';
   divTask.textContent = text;
-  tasksTextToDo.append(divTask);
+  createElement(divTask, 'task', 'task', tasksTextToDo);
 
   let divTaskIcons = document.createElement('span');
-  divTaskIcons.id = 'task__icons-to-do';
-  divTaskIcons.classList.add('task__icons');
-  divTask.append(divTaskIcons);
+  createElement(divTaskIcons, 'task__icons-to-do', 'task__icons', divTask);
 
   let taskIconRightArrow = document.createElement('span');
-  taskIconRightArrow.id = 'task__icon';
-  taskIconRightArrow.classList.add('task__right-arrow');
-  divTaskIcons.append(taskIconRightArrow);
+  createElement(taskIconRightArrow, 'task__icon', 'task__right-arrow', divTaskIcons);
 
   let taskIconCross = document.createElement('span');
-  taskIconCross.id = 'task__icon';
-  taskIconCross.classList.add('task__cross');
-  divTaskIcons.append(taskIconCross);
+  createElement(taskIconCross, 'task__icon', 'task__cross', divTaskIcons);
   createTaskNumber()
 
   taskIconCross.addEventListener('click', removeTask);
+  divTask.addEventListener('click', moveTasks);
+}
 
-  function removeTask(event){
-    if(event.target.previousSibling.className === 'task__right-arrow' || event.target.previousSibling.className === 'task__right-arrow-done') {
-      divTask.remove();
-      createTaskNumber(); 
-    } else if(event.target.previousSibling.className === 'task__right-arrow-in-progress'){
-      deleteModalInProgress.style.display = 'block';
-    }
+function createElement(element, id, className, addTo){
+  element.id = id;
+  element.classList.add(className);
+  addTo.append(element);
+}
 
-    document.querySelector('.modals__button-yes-delete-task').addEventListener('click', function(){
-      deleteModalInProgress.style.display = 'none';
-      divTask.remove(); 
-      createTaskNumber();
-    });
-    
-    document.querySelector('.modals__button-no-delete-task').addEventListener('click', function(){
-      deleteModalInProgress.style.display = 'none';
-    })
+function moveTasks(event){
+  if(event.target.className === 'task__right-arrow'){
+    moveTasksToInProgress();
+  } else if(event.target.className === 'task__right-arrow-in-progress'){
+    tasksDone.append(event.currentTarget);
+    changeClassList('task__right-arrow-in-progress', 'task__right-arrow-done');
+    createTaskNumber();
 
+  } else if(event.target.className === 'task__right-arrow-done'){
+    tasksTextToDo.append(event.currentTarget);
+    changeClassList('task__right-arrow-done', 'task__right-arrow');
+    createTaskNumber();
   }
-  
-  divTask.addEventListener('click', function(event){
-    if(event.target.className === 'task__right-arrow'){
-      if(tasksInProgress.children.length === 5){
-        let modalMaxElements = document.querySelector('.modal__max-elements');
-        modalMaxElements.style.display = 'block';
-        document.querySelector('.modals__button-yes-max').addEventListener('click', function(){
-        modalMaxElements.style.display = 'none';
-        createTaskNumber();
-        })
-      } else {
-        tasksInProgress.append(divTask);
-        taskIconRightArrow.classList.remove('task__right-arrow');
-        taskIconRightArrow.classList.add('task__right-arrow-in-progress');
-        createTaskNumber();
-      }
-    } else if(event.target.className === 'task__right-arrow-in-progress'){
-      tasksDone.append(divTask);
-      taskIconRightArrow.classList.remove('task__right-arrow-in-progress');
-      taskIconRightArrow.classList.add('task__right-arrow-done');
-      createTaskNumber();
+}
 
-    } else if(event.target.className === 'task__right-arrow-done'){
-      tasksTextToDo.append(divTask);
-      taskIconRightArrow.classList.remove('task__right-arrow-done');
-      taskIconRightArrow.classList.add('task__right-arrow');
-      createTaskNumber();
-    }
+function changeClassList(initual, ensuing){
+  event.target.classList.remove(initual);
+  event.target.classList.add(ensuing);
+}
+
+function moveTasksToInProgress() {
+  if(tasksInProgress.children.length === 5){
+    modalMaxElements.style.display = 'block';
+  } else {
+    tasksInProgress.append(event.currentTarget);
+    changeClassList('task__right-arrow', 'task__right-arrow-in-progress');
+    createTaskNumber();
+  }
+}
+
+document.querySelector('.modals__button-yes-max').addEventListener('click', function(){
+  modalMaxElements.style.display = 'none';
+})
+
+function removeTask(event){
+  if(event.target.previousSibling.className === 'task__right-arrow' || event.target.previousSibling.className === 'task__right-arrow-done') {
+    event.target.parentNode.parentNode.remove();
+    createTaskNumber(); 
+  } else if(event.target.previousSibling.className === 'task__right-arrow-in-progress'){
+    deleteModalInProgress.style.display = 'block';
+  }
+
+  document.querySelector('.modals__button-yes-delete-task').addEventListener('click', function(){
+    deleteModalInProgress.style.display = 'none';
+    event.target.parentNode.parentNode.remove();
+    createTaskNumber();
+  });
+  
+  document.querySelector('.modals__button-no-delete-task').addEventListener('click', function(){
+    deleteModalInProgress.style.display = 'none';
   })
+
 }
 
 buttonClearAllToDo.addEventListener('click', function(){
@@ -147,7 +157,7 @@ document.querySelector('.modals__button-yes').addEventListener('click', function
 
 function createTaskNumber() { 
   let titles = document.querySelectorAll('.title');
-    for (let item of titles) {
+  for (let item of titles) {
     if(item.id === 'title-to-do'){
       if(tasksTextToDo.children.length === 0) {
         item.textContent = 'to do:';
